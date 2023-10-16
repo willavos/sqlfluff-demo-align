@@ -1,0 +1,87 @@
+; sqlfluff configuration file
+
+[sqlfluff]
+templater = jinja
+dialect = postgres
+max_line_length = 0
+exclude_rules = None
+processes = 1
+
+
+[sqlfluff:indentation]
+tab_space_size = 4
+indent_unit = space
+indented_using_on = true
+indented_on_contents = true
+allow_implicit_indents = true
+indented_joins = true
+indented_ctes = true
+
+
+; Align nullabilities & types in CREATE/ALTER TABLE
+
+[sqlfluff:layout:type:column]
+spacing_before = align
+align_within = statement
+align_scope = file
+; align_within may need to be set to column_definition
+
+[sqlfluff:layout:type:column_definition]
+spacing_before = align
+align_within = statement
+align_scope = file
+
+[sqlfluff:layout:type:column_constraint_segment]
+spacing_before = align
+align_within = statement
+align_scope = file
+
+[sqlfluff:layout:type:data_type]
+spacing_before = align
+align_within = statement
+align_scope = file
+
+
+
+; Align expressions in SELECT
+[sqlfluff:layout:type:select_clause]
+spacing_before = align
+align_within = select_clause
+align_scope = file
+
+[sqlfluff:layout:type:select_target]
+spacing_before = align
+align_within = select_clause
+align_scope = file
+
+
+
+
+; Function names should not have spaces after them
+[sqlfluff:rules:layout.functions]
+no_space_after_function_name = true
+
+; Lowercase everything
+[sqlfluff:rules:capitalisation.keywords]
+capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.identifiers]
+extended_capitalisation_policy = lower
+unquoted_identifiers_policy = all
+
+[sqlfluff:rules:capitalisation.functions]
+extended_capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.literals]
+capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.types]
+extended_capitalisation_policy = lower
+
+; Commas should be at the end of the line
+[sqlfluff:rules:layout.commas]
+line_position = trailing
+
+[sqlfluff:layout:type:comma]
+spacing_before = touch
+line_position = trailing
